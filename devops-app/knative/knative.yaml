@@ -11,7 +11,7 @@ spec:
     namespace: default
     server: https://kubernetes.default.svc
   source:
-    repoURL: https://github.com/tomaszwostal/devops-toys.git
+    repoURL: https://github.com/tomaszwostal/michal.git
     path: devops-app/knative/manifests
     targetRevision: v1.0
   syncPolicy:

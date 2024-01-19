@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/tomaszwostal/devops-toys.git
+    repoURL: https://github.com/tomaszwostal/michal.git
     path: devops-app
     targetRevision: v0.1
   destination:

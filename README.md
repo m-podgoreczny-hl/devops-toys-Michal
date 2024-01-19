@@ -120,7 +120,7 @@ docker run --name wsl-kernel-builder -v "$(pwd)"/src:/build --rm -it wsl-kernel-
 On Windows systems **docker run** command should look like this:
 
 ```shell
-docker run --name wsl-kernel-builder -v "${PWD}"/src:/build --rm -it wsl-kernel-builder
+docker docker run --name wsl-kernel-builder -v "${PWD}/src:/build" --rm -it wsl-kernel-builder
 ```
 
 The compiled kernel will be available in **src/arch/x86/boot/bzImage**.
