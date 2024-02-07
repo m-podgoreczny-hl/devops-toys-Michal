@@ -33,7 +33,7 @@ cluster_local:
 
 # Set the proper domain name
 domain_name:
-	find devops-app -type f -name "*.yaml" -exec sed -i 's/devops.toys/$(DOMAIN_NAME)/g' {} \;
+	find devops-app -type f -name "*.yaml" -exec sed -i 's/michal/$(DOMAIN_NAME)/g' {} \;
 	git add .
 	git commit -m "Change domain name"
 	git push
@@ -114,11 +114,11 @@ ca_cert_secret:
 # Add the CA certificate to the trusted certificates
 ca_trusted:
 	# For Arch Linux
-	sudo cp ca.crt /etc/ca-certificates/trust-source/anchors
-	sudo update-ca-trust
+	#sudo cp ca.crt /etc/ca-certificates/trust-source/anchors
+	#sudo update-ca-trust
 	# For Debian/Ubuntu
-	#sudo cp ca.crt /usr/local/share/ca-certificates
-	#sudo update-ca-certificates
+	sudo cp ca.crt /usr/local/share/ca-certificates
+	sudo update-ca-certificates
 
 minio: minio_users minio_root
 
@@ -127,7 +127,7 @@ minio_users:
 	kubectl --namespace minio \
 		create secret \
 		generic centralized-minio-users \
-		--from-file=user=/dev/stdin <<< $$(echo -e "username=${MINIO_USERNAME}\npassword=${MINIO_PASSWORD}\ndisabled=false\npolicies=readwrite,consoleAdmin,diagnostics\nsetPolicies=false") \
+		--from-file=user=/dev/stdin <<< $(echo -e "username=${MINIO_USERNAME}\npassword=${MINIO_PASSWORD}\ndisabled=false\npolicies=readwrite,consoleAdmin,diagnostics\nsetPolicies=false") \
 		--output json \
 		--dry-run=client | \
 		kubeseal --format yaml \
@@ -211,3 +211,8 @@ all: cluster_local initial_setup add_repo ca minio sonarqube bootstrap argocd
 # Destroy the local Kubernetes cluster
 destroy:
 	kind delete cluster --name local 
+
+
+#start and rest
+start: cluster_local initial_setup add_repo ca
+rest: minio_root sonarqube bootstrap argocd

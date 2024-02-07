@@ -11,7 +11,7 @@ spec:
     namespace: default
     server: https://kubernetes.default.svc
   source:
-    repoURL: https://github.com/tomaszwostal/michal.git
+    repoURL: https://github.com/tomaszwostal/local.devops.git
     path: devops-app/bootstrap/manifests
     targetRevision: v0.1
   syncPolicy:
